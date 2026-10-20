@@ -1,0 +1,253 @@
+@import 'tailwindcss';
+
+@theme {
+  /* ── Navy Blue + White + Steel Grey palette ── */
+  --color-ink:      #050810;
+  --color-ink-2:    #0a0f1e;
+  --color-ink-3:    #101828;
+  --color-navy:     #0f2044;
+  --color-navy-2:   #1a3a6e;
+  --color-crimson:  #1e4db7;
+  --color-crimson-2: #4a80e4;
+  --color-bone:     #f4f5f7;
+  --color-mist:     #b0b8cc;
+  --color-smoke:    #6b7a99;
+  --color-steel:    #3d4f6e;
+  --font-display: 'Bebas Neue', 'Oswald', Impact, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --ease-cine: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  color-scheme: dark;
+  --gutter: clamp(16px, 4vw, 56px);
+}
+
+html {
+  position: relative;
+  background: var(--color-ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Interior Design 3D Background — low visibility blueprint grid ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.06;
+  background-image:
+    linear-gradient(rgba(74, 128, 228, 0.9) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74, 128, 228, 0.9) 1px, transparent 1px),
+    repeating-linear-gradient(
+      -52deg,
+      transparent,
+      transparent 90px,
+      rgba(100, 150, 255, 0.5) 90px,
+      rgba(100, 150, 255, 0.5) 91px
+    ),
+    repeating-linear-gradient(
+      52deg,
+      transparent,
+      transparent 90px,
+      rgba(100, 150, 255, 0.5) 90px,
+      rgba(100, 150, 255, 0.5) 91px
+    );
+  background-size: 56px 56px, 56px 56px, 100% 100%, 100% 100%;
+}
+
+/* 3D interior room scene watermark */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Cg stroke='%234a80e4' stroke-width='1' fill='none'%3E%3Cpolygon points='140,70 660,70 730,520 70,520' stroke-width='1.2'/%3E%3Cline x1='140' y1='70' x2='400' y2='290'/%3E%3Cline x1='660' y1='70' x2='400' y2='290'/%3E%3Cline x1='70' y1='520' x2='400' y2='290'/%3E%3Cline x1='730' y1='520' x2='400' y2='290'/%3E%3Cline x1='220' y1='70' x2='250' y2='520' stroke-opacity='0.45'/%3E%3Cline x1='300' y1='70' x2='340' y2='520' stroke-opacity='0.45'/%3E%3Cline x1='380' y1='70' x2='400' y2='520' stroke-opacity='0.45'/%3E%3Cline x1='460' y1='70' x2='400' y2='520' stroke-opacity='0.45'/%3E%3Cline x1='540' y1='70' x2='460' y2='520' stroke-opacity='0.45'/%3E%3Cline x1='620' y1='70' x2='550' y2='520' stroke-opacity='0.45'/%3E%3Cline x1='70' y1='400' x2='730' y2='400' stroke-opacity='0.4'/%3E%3Cline x1='70' y1='460' x2='730' y2='460' stroke-opacity='0.4'/%3E%3Crect x='455' y='100' width='170' height='140' stroke-opacity='0.65'/%3E%3Cline x1='540' y1='100' x2='540' y2='240' stroke-opacity='0.5'/%3E%3Cline x1='455' y1='170' x2='625' y2='170' stroke-opacity='0.5'/%3E%3Crect x='150' y='390' width='210' height='90' rx='6' stroke-opacity='0.55'/%3E%3Crect x='155' y='370' width='200' height='28' rx='5' stroke-opacity='0.55'/%3E%3Cellipse cx='370' cy='440' rx='65' ry='22' stroke-opacity='0.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+::selection {
+  background: var(--color-crimson);
+  color: white;
+}
+
+/* Ensure content sits above the body::before/after backgrounds */
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+.gutter {
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* Film grain — a single fixed layer, cheap and subtle */
+.grain {
+  position: fixed;
+  inset: -50%;
+  pointer-events: none;
+  z-index: 90;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 1.2s steps(6) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -1%); }
+  80% { transform: translate(3%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Hide scrollbars on horizontal rails while keeping them scrollable */
+.rail {
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom cursor: hide the native one only when ours is active */
+.has-custom-cursor,
+.has-custom-cursor a,
+.has-custom-cursor button,
+.has-custom-cursor [role='button'] {
+  cursor: none;
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(176, 184, 204, 0.28);
+}
+
+.glass {
+  background: linear-gradient(180deg, rgba(30, 77, 183, 0.12), rgba(10, 15, 30, 0.06));
+  border: 1px solid rgba(74, 128, 228, 0.20);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+.focus-ring:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-crimson-2);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Interior blueprint isometric cube pattern — reusable utility */
+.interior-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.interior-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.055;
+  background-image:
+    linear-gradient(rgba(74,128,228,0.8) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,128,228,0.8) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.interior-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cg stroke='%234a80e4' stroke-width='0.8' fill='none'%3E%3Cpolygon points='100,20 170,60 170,140 100,180 30,140 30,60'/%3E%3Cline x1='100' y1='20' x2='100' y2='100'/%3E%3Cline x1='170' y1='60' x2='100' y2='100'/%3E%3Cline x1='30' y1='60' x2='100' y2='100'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  background-repeat: repeat;
+}
+
+.light-streak {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(74, 128, 228, 0.85), transparent);
+  filter: blur(0.4px);
+  animation: streak 7s var(--ease-cine) infinite;
+  opacity: 0;
+}
+@keyframes streak {
+  0% { transform: translateX(-40%) scaleX(0.4); opacity: 0; }
+  15% { opacity: 0.9; }
+  45% { transform: translateX(40%) scaleX(1); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
+.shimmer-text {
+  background: linear-gradient(90deg, #f4f5f7 0%, #f4f5f7 32%, #4a80e4 47%, #ffffff 54%, #b0b8cc 62%, #f4f5f7 75%, #f4f5f7 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain,
+  .light-streak,
+  .shimmer-text {
+    animation: none !important;
+  }
+  .light-streak {
+    display: none;
+  }
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  header, nav, #top, .grain, .light-streak, button, a[href^="mailto"] {
+    display: none !important;
+  }
+  article {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  h3, h4, p, span, li, dt, dd {
+    color: #111111 !important;
+  }
+}
